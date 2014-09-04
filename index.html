@@ -1,0 +1,127 @@
+<!doctype html>
+<html class="no-js" ng-app="rr">
+  <head>
+    <meta charset="utf-8">
+    <title>Restaurant Roulette</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <link rel="stylesheet" href="styles/main-1afc0132.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Muli" type="text/css">
+
+    <!--Oauth stuff-->
+    <script src="bower_components/oauth-js/dist/oauth.js"></script>
+    <!-- // <script src="oauth2.js"></script> -->
+    <!--...-->
+
+    <script src="scripts/modernizr-c1ff1650.js"></script>
+  </head>
+  <body ng-controller="MainCtrl">
+    <!--[if lt IE 10]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+  </head>
+
+    <div class="home pull-right" ng-hide="tab===0" ng-click="tab=0; selectRests(restaurantArray)" ng-show="tab===1 || tab===2"><button class="btn btn-primary"><span class="glyphicon glyphicon-home"></span></button></div>
+
+    <div class="main">
+      <div class="row">
+
+        <div class="col-md-2 side">
+           <button ng-click="tab=1" ng-init="tab=0" ng-hide="tab===1 || tab===2" type="button" class="btn btn-lg btn-primary cta">Take a Chance<span class="glyphicon glyphicon-chevron-right"></span></button>
+
+           <div class="userinput" ng-show="tab===1" ng-hide="tab===0 || tab===2">
+
+               <div class="form-group">
+                <label>
+                  <span class="glyphicon glyphicon-cutlery "></span> Cuisine
+                </label>
+                <input type="text" class="form-control" ng-model="selectedCuisine" ngModelOptions="{ debounce: {'default': 2000, 'blur': 0} }" ng-options="cuisine for cuisine in cuisines" placeholder="Enter cuisine" bs-typeahead  ng-change="changeCuisine(selectedCuisine)" >
+                </div>
+
+
+
+           </div>
+        </div>
+
+
+        <div class="col-md-10 jumbo">
+          <div class='main_body' ng-hide='tab===1 || tab===2' ng-show='tab===0'>
+            <h1>restaurant roulette </h1>
+            <h3>Can't pick a place to eat? Let fate decide.</h3>
+          </div>
+
+
+
+              <div class='results' ng-hide='tab===0 || tab===2' ng-show='tab===1'>
+
+                <div class='row '>
+
+                  <div class="col-md-5 col-md-offset-1" ng-hide="rest1 == undefined">
+                    <div class='restaurant1 panel panel-default' >
+                      <div class="panel-body">
+                        <h2>{{rest1.name}}</h2>
+                        <p>{{rest1.name}} has {{rest1.stats.checkinsCount}} check-ins.</p>
+                        <p>{{rest1.stats.usersCount}} people have visited.</p>
+                        <p>{{rest1.stats.tipCount}} tips provided.</p>
+                        <a href="{{rest1.url}}">Visit website</a>
+                        <button type="button" class="btn btn-primary" id='map1' ng-click="initialize(rest1); tab=2" >Get Directions</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5" ng-hide="rest2 == rest1">
+                    <div class='restaurant2 panel panel-default'>
+                      <div class="panel-body">
+                        <h2>{{rest2.name}}</h2>
+                        <p>{{rest2.name}} has {{rest2.stats.checkinsCount}} check-ins.</p>
+                        <p>{{rest2.stats.usersCount}} people have visited.</p>
+                        <p>{{rest2.stats.tipCount}} tips provided.</p>
+                        <a href="{{rest2.url}}">Visit website</a>
+                        <button type="button" class="btn btn-primary" id='map2'  ng-click="initialize(rest2); tab=2" >Get Directions</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      </div>
+    </div>
+
+    
+    <div class="row" ng-hide="tab===0 || tab===1" ng-show="tab===2" >
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-default">
+          <div id="mapbox" ></div>
+        </div>
+      </div>
+    </div>
+
+      <div class="footer">
+        <p>With ♥ from Joey G, Daniel Cox &amp; Austin Sprawls</p>
+      </div>
+
+
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-54458836-1');ga('send','pageview');
+    </script>
+
+
+
+    <script src="scripts/vendor-d5eb8f6b.js"></script>
+
+    <script src="scripts/main-e7126e25.js"></script>
+    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key=AIzaSyBEFL5_Am8vQuSxOWVp4WStbhQUP7Jck_w"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  </body>
+</html>
